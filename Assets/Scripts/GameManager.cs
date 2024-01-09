@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
         TimeManager = GetComponent<TimeManager>();
         UIManager = GetComponent<UIManager>();
         AudioManager = GetComponent<AudioManager>();
+
+        StartGame();
     }
 
     private void Start()
@@ -44,9 +46,9 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("hellllo");
-//        ScoreManager?.Reset();
-  //      TimeManager?.StartGame();
-    //    UIManager?.StartGame();
-      //  AudioManager?.StartGame();
+        ScoreManager?.Reset();
+        TimeManager?.StartGame();
+        UIManager?.StartGame();
+        //AudioManager?.StartGame();
     }
 }

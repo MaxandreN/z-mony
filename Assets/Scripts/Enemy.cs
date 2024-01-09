@@ -1,21 +1,26 @@
 
+using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Vector2 _movement;
-    private Rigidbody2D _rigidbody2D;
-    private Animator _animator;
+    public event Action<Enemy> OnCollected;
 
-    //private static readonly int Horizontal = Animator.StringToHash("Horizontal");
-    //private static readonly int Vertical = Animator.StringToHash("Vertical");
-    //private static readonly int Speed = Animator.StringToHash("Speed");
+    public int score = 1;
 
-    [Range(5f, 30f)] public float speed = 5f;
+    private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Collected rupee");
+            OnCollected?.Invoke(this);
+        }
     }
 }
