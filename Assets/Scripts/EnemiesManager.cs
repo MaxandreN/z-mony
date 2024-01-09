@@ -9,7 +9,7 @@ public class EnemiesManager : MonoBehaviour
     public Transform container;
     public Transform spawner;
     public Enemy enemyPrefab;
-    public float delay = 1f;
+    public float delay = 4f;
     public AudioSource source;
 
     private List<Enemy> _enemies = new List<Enemy>();

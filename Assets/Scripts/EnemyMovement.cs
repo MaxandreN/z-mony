@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
         _gameManager = GameManager.Instance;
     }
     
-    void Update()
+    public void Move()
     {
         // la direction
         Vector2 playerDirection = (_gameManager.Player.transform.position - transform.position).normalized;

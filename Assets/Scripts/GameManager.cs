@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     public ScoreManager ScoreManager {get; private set; }
     public TimeManager TimeManager {get; private set; }
     public UIManager UIManager {get; private set; }
-    public AudioManager AudioManager {get; private set; }
     public EnemiesManager EnemiesManager {get; private set; }
     public GameObject Player;
 
@@ -21,7 +20,6 @@ public class GameManager : MonoBehaviour
         ScoreManager = GetComponent<ScoreManager>();
         TimeManager = GetComponent<TimeManager>();
         UIManager = GetComponent<UIManager>();
-        AudioManager = GetComponent<AudioManager>();
         EnemiesManager = GetComponent<EnemiesManager>();
     }
 
@@ -39,17 +37,14 @@ public class GameManager : MonoBehaviour
     {
         UIManager.StopGame();
         TimeManager.StopGame();
-        AudioManager.StopGame();
         EnemiesManager.Reset();
     }
 
     public void StartGame()
     {
-        Debug.Log("hellllo");
         ScoreManager?.Reset();
         TimeManager?.StartGame();
         UIManager?.StartGame();
-        //AudioManager?.StartGame();
         EnemiesManager?.StartSpawning();
     }
 }
