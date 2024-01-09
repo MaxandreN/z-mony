@@ -14,9 +14,6 @@ public class Bullet : MonoBehaviour
  
     void OnCollisionEnter2D(Collision2D collision)
     {
-        _gameManager.ScoreManager.AddScore(1);
-        Destroy(collision.gameObject);
         Destroy(gameObject);
-        
     }
 }

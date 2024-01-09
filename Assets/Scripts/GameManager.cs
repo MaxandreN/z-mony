@@ -6,12 +6,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
     public ScoreManager ScoreManager {get; private set; }
     public TimeManager TimeManager {get; private set; }
     public UIManager UIManager {get; private set; }
     public AudioManager AudioManager {get; private set; }
-    
+    public EnemiesManager EnemiesManager {get; private set; }
+    public GameObject Player;
 
     private void Awake()
     {
@@ -22,8 +22,7 @@ public class GameManager : MonoBehaviour
         TimeManager = GetComponent<TimeManager>();
         UIManager = GetComponent<UIManager>();
         AudioManager = GetComponent<AudioManager>();
-
-        StartGame();
+        EnemiesManager = GetComponent<EnemiesManager>();
     }
 
     private void Start()
@@ -41,6 +40,7 @@ public class GameManager : MonoBehaviour
         UIManager.StopGame();
         TimeManager.StopGame();
         AudioManager.StopGame();
+        EnemiesManager.Reset();
     }
 
     public void StartGame()
@@ -50,5 +50,6 @@ public class GameManager : MonoBehaviour
         TimeManager?.StartGame();
         UIManager?.StartGame();
         //AudioManager?.StartGame();
+        EnemiesManager?.StartSpawning();
     }
 }

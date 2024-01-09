@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        score.text = $"Score: {_gameManager.ScoreManager.Score}";
+        score.text = $"{_gameManager.ScoreManager.Score}";
         remaining.text = $"{Math.Ceiling(_gameManager.TimeManager.Remaining)}";
     }
 
