@@ -5,7 +5,7 @@ using System;
 
 public class TimeManager : MonoBehaviour
 {
-    public int duration = 20;
+    public int duration = 30;
     public float Remaining { get; private set; }
     private bool _running = false;
 

@@ -13,11 +13,11 @@ public class SpawnerMovement : MonoBehaviour
     
     public void Update()
     {
-        if (transform.position.y < 3)
+        if (transform.position.y < 4)
         {
             direction = true;
         }
-        if (transform.position.y > 17)
+        if (transform.position.y > 15)
         {
             direction = false;
         }

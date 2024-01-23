@@ -254,6 +254,7 @@ MonoBehaviour:
   score: 1
   life: 4
   speed: 1
+  _bullet: {fileID: 159234516191961062, guid: 80871a71930a448589b84c479e4a65fc, type: 3}
 --- !u!50 &2896732587712929890
 Rigidbody2D:
   serializedVersion: 4
@@ -266,7 +267,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0

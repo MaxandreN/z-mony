@@ -7,8 +7,9 @@ public class Enemy : MonoBehaviour
     public event Action<Enemy> OnHit;
 
     [Range(1, 20)] public int score = 1;
-    [Range(1, 20)] public int life = 5;
+    [Range(1, 20)] public int life = 4;
     [Range(0f, 10f)] public float speed = 1f;
+
 
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
@@ -21,7 +22,6 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        
         _rigidbody2D = GetComponent<Rigidbody2D>(); 
         _animator = GetComponent<Animator>();
         _gameManager = GameManager.Instance;
@@ -31,7 +31,10 @@ public class Enemy : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        OnHit?.Invoke(this);
+        if (other.gameObject.GetComponent<Player>() || other.gameObject.GetComponent<Bullet>())
+        {
+            OnHit?.Invoke(this);
+        }
     }
 
     public bool Hit()
@@ -59,7 +62,7 @@ public class Enemy : MonoBehaviour
     public void Move()
     {
         // la direction
-        Vector2 playerDirection = (_gameManager.Player.transform.position - transform.position).normalized;
+        Vector2 playerDirection = (_gameManager.CurrentPlayer.transform.position - transform.position).normalized;
         // Déplacer l'ennemi
         transform.Translate(playerDirection * speed * Time.deltaTime);
     }

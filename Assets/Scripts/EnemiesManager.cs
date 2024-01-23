@@ -9,7 +9,7 @@ public class EnemiesManager : MonoBehaviour
     public Transform container;
     public Transform spawner;
     public Enemy enemyPrefab;
-    public float delay = 4f;
+    public float[] delays = new float[10];
     public AudioSource source;
 
     private List<Enemy> _enemies = new List<Enemy>();
@@ -18,8 +18,17 @@ public class EnemiesManager : MonoBehaviour
     private void Awake()
     {
         _gameManager = GameManager.Instance;
+        addLevels();
     }
 
+    public void addLevels()
+    {
+        for (int i = 0; i < delays.Length; i++)
+        {
+            delays[i] = 5f - (0.2f*i);
+        }
+    }
+    
     public void Reset()
     {
         StopSpawning();
@@ -38,9 +47,9 @@ public class EnemiesManager : MonoBehaviour
         Destroy(enemy.gameObject);
     }
 
-    public void StartSpawning()
+    public void StartSpawning(int level)
     {
-        _spawnCoroutine = StartCoroutine(SpawnCoroutine());
+        _spawnCoroutine = StartCoroutine(SpawnCoroutine(level));
     }
 
     private void StopSpawning()
@@ -51,11 +60,11 @@ public class EnemiesManager : MonoBehaviour
         _spawnCoroutine = null;
     }
 
-    private IEnumerator SpawnCoroutine()
+    private IEnumerator SpawnCoroutine(int level)
     {
         Spawn();
-        yield return new WaitForSeconds(delay);
-        StartSpawning();
+        yield return new WaitForSeconds(delays[level]);
+        StartSpawning(level);
     }
 
     private void Spawn()
