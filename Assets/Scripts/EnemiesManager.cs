@@ -23,9 +23,10 @@ public class EnemiesManager : MonoBehaviour
 
     public void addLevels()
     {
-        for (int i = 0; i < delays.Length; i++)
+        delays[0] = 5f;
+        for (int i = 1; i < delays.Length; i++)
         {
-            delays[i] = 5f - (0.2f*i);
+            delays[i] = 4f - (0.4f * i) < 1 ? 1 : 4f - (0.4f * i);
         }
     }
     

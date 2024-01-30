@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public event Action OnDeath;
     public int fullLife = 5;
     public int life;
+    public GameObject lifeContainer; 
     
     private GameManager _gameManager;
     private Vector2 _movement;
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
         
-        if (!_gameManager.running)
+        if (!_gameManager.Running)
         {
             horizontal = 0;
             vertical = 0;
@@ -54,12 +55,10 @@ public class Player : MonoBehaviour
     public bool Hit()
     {
         life -= 1;
-        print("hit !!");
+        lifeContainer.transform.GetChild(life).gameObject.SetActive(false);
         if (life < 1)
         {
-            print("dead");
             OnDeath?.Invoke();
-            life = fullLife;
             return true;
         }
         return false;
@@ -68,5 +67,15 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         _rigidbody2D.velocity = _movement * speed;
+    }
+
+    public void Reset()
+    {
+        life = fullLife;
+        lifeContainer.transform.GetChild(0).gameObject.SetActive(true);
+        lifeContainer.transform.GetChild(1).gameObject.SetActive(true);
+        lifeContainer.transform.GetChild(2).gameObject.SetActive(true);
+        lifeContainer.transform.GetChild(3).gameObject.SetActive(true);
+        lifeContainer.transform.GetChild(4).gameObject.SetActive(true);
     }
 }

@@ -11,10 +11,11 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager {get; private set; }
     public EnemiesManager EnemiesManager {get; private set; }
     public GameObject CurrentPlayer;
-    public int level = 0;
-    public int[] levelGoal = new int[10];
-    public bool running = false;
-    public bool gameOver = false;
+    public int Level = 0; 
+    public int[] LevelGoal = new int[10];
+    public bool Running = false;
+    public bool GameOver = false;
+    public int BestScore = 0;
 
 
     private void Awake()
@@ -32,9 +33,9 @@ public class GameManager : MonoBehaviour
 
     private void addLevelGoal()
     {
-        for (int i = 0; i < levelGoal.Length; i++)
+        for (int i = 0; i < LevelGoal.Length; i++)
         {
-            levelGoal[i] = 1 + (2*i);
+            LevelGoal[i] = 1 + (2*i);
         }
     }
 
@@ -51,21 +52,28 @@ public class GameManager : MonoBehaviour
 
     private void PlayerDead()
     {
-        level = 0;
-        gameOver = true;
+        Level = 0;
+        GameOver = true;
         StopGame();
     }
 
     private void StopGame()
     {
-        running = false;
+        Running = false;
         TimeManager.StopGame();
         EnemiesManager.Reset();
 
-        if (ScoreManager.Score >= levelGoal[level] && !gameOver)
+        if (ScoreManager.Score >= LevelGoal[Level] && !GameOver)
         {
-            level++;
-            UIManager.StopGame(true);
+            Level++;
+            if (Level == 10)
+            {
+                UIManager.GameWin(ScoreManager.SumScore, BestScore);
+            }
+            else
+            {
+                UIManager.StopGame(true);
+            }
         }
         else
         {
@@ -73,13 +81,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void RestartGame()
+    {
+        CurrentPlayer.GetComponent<Player>().Reset();
+        Level = 0;
+        StartGame();
+    }
+    
     public void StartGame()
     {
-        gameOver = false;
-        running = true;   
+        GameOver = false;
+        Running = true;   
         ScoreManager?.Reset();
         TimeManager?.StartGame();
         UIManager?.StartGame();
-        EnemiesManager?.StartSpawning(level);
+        EnemiesManager?.StartSpawning(Level);
     }
 }

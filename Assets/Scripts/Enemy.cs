@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -8,7 +9,7 @@ public class Enemy : MonoBehaviour
 
     [Range(1, 20)] public int score = 1;
     [Range(1, 20)] public int life = 4;
-    [Range(0f, 10f)] public float speed = 1f;
+    [Range(0f, 10f)] public float speed = 1.5f;
 
 
     private SpriteRenderer _spriteRenderer;
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
         if (life < 1)
         {
             _animator.SetTrigger(dead);
+            WaitSec();
             return true;
         }
         else
@@ -52,11 +54,33 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
+    private IEnumerable<WaitForSeconds> WaitSec()
+    {
+        yield return new WaitForSeconds(2f);
+        
+    }
+
     private void Update()
     {
-        if (life > 1)
+        if (life >= 1)
         {
             Move();
+        }
+
+        switch (_gameManager.Level)
+        {
+            case 6:
+                speed = 1.75f;
+                break;
+            case 7:
+                speed = 2f;
+                break;
+            case 8:
+                speed = 2.25f;
+                break;
+            case 9:
+                speed = 2.5f;
+                break;
         }
     }
     public void Move()

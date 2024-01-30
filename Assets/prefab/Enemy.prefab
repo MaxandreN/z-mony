@@ -253,8 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 1
   life: 4
-  speed: 1
-  _bullet: {fileID: 159234516191961062, guid: 80871a71930a448589b84c479e4a65fc, type: 3}
+  speed: 1.5
 --- !u!50 &2896732587712929890
 Rigidbody2D:
   serializedVersion: 4
