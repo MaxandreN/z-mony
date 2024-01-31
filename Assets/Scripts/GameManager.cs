@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < LevelGoal.Length; i++)
         {
-            LevelGoal[i] = 1 + (2*i);
+            LevelGoal[i] = 4 + (2*i);
         }
     }
 
@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
         Running = false;
         TimeManager.StopGame();
         EnemiesManager.Reset();
-
-        if (ScoreManager.Score >= LevelGoal[Level] && !GameOver)
+        
+        if (ScoreManager?.Score >= LevelGoal[Level] && !GameOver)
         {
             Level++;
             if (Level == 10)
@@ -83,8 +83,9 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        CurrentPlayer.GetComponent<Player>().Reset();
+        CurrentPlayer?.GetComponent<Player>().Reset();
         Level = 0;
+        ScoreManager?.ResetGame();
         StartGame();
     }
     
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
         Running = true;   
         ScoreManager?.Reset();
         TimeManager?.StartGame();
-        UIManager?.StartGame();
+        UIManager?.StartGame(LevelGoal[Level]);
         EnemiesManager?.StartSpawning(Level);
     }
 }

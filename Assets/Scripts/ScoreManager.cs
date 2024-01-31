@@ -14,9 +14,14 @@ public class ScoreManager : MonoBehaviour
     public void Reset()
     {
         Score = 0;
-        SumScore = 0;
     } 
 
+    public void ResetGame()
+    {
+        Score = 0;
+        Reset();
+    } 
+    
     public void AddScore(int score)
     {
         Score += score;

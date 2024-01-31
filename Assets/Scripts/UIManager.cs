@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     public TMPro.TextMeshProUGUI win;
     public TMPro.TextMeshProUGUI winScore;
     public GameObject restartButton;
-    public GameObject lifeContainer;
+    private int goalScore = 0;
 
 
     private void Awake()
@@ -25,15 +25,16 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        score.text = $"Score : {_gameManager.ScoreManager.Score}";
+        score.text = $"Score : {_gameManager.ScoreManager.Score} / {goalScore}";
         remaining.text = $"{Math.Ceiling(_gameManager.TimeManager.Remaining)}";
         level.text = $"Level : {_gameManager.Level}";
     }
 
-    public void StartGame()
+    public void StartGame(int currentGoalScore)
     {
         startButton.SetActive(false);
         restartButton.SetActive(false);
+        goalScore = currentGoalScore;
         win.color = new Color(246, 212, 81, 0);
         winScore.color = new Color(246, 212, 81, 0);
     }
@@ -42,11 +43,18 @@ public class UIManager : MonoBehaviour
     {
         win.text = $"You Lost";
         if (isWin) win.text = $"You Win";
-        if (_gameManager.GameOver) win.text = $"GameOver";
+        if (_gameManager.GameOver) win.text = $"Game Over";
         win.color = new Color(246, 212, 81, 255);
+        switch (_gameManager.GameOver)
+        {
+            case false:
+                startButton.SetActive(true);
+                break;
+            case true:
+                restartButton.SetActive(true);
+                break;
+        }
         _gameManager.GameOver = false;
-        if (isWin) startButton.SetActive(true);
-        if (!isWin) restartButton.SetActive(true);
     }
     
     public void GameWin(int sumScore, int bestScore)
@@ -58,7 +66,6 @@ public class UIManager : MonoBehaviour
         {
             bestScore = sumScore;
         }
-        print($"bestScore {bestScore}");
 
         winScore.text = $"Score : {sumScore}  Best : {bestScore}";
         winScore.color = new Color(246, 212, 81, 255);

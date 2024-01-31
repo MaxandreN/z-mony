@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         }
 
         _movement = new Vector2(horizontal, vertical).normalized;
-        _animator.SetFloat(Horizontal, horizontal);
+        _animator.SetFloat(Player.Horizontal, horizontal);
         _animator.SetFloat(Vertical, vertical);
         _animator.SetFloat(Speed, _movement.sqrMagnitude);
     }
