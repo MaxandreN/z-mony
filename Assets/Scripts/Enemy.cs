@@ -10,11 +10,10 @@ public class Enemy : MonoBehaviour
     [Range(1, 20)] public int score = 1;
     [Range(1, 20)] public int life = 4;
     [Range(0f, 10f)] public float speed = 1.5f;
+    public AudioClip hitSound;
+    public AudioClip deadSound;
 
-
-    private SpriteRenderer _spriteRenderer;
     private Animator _animator;
-    private Rigidbody2D _rigidbody2D ;
     private Vector2 _movement;
     private GameManager _gameManager;
     
@@ -23,11 +22,10 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>(); 
         _animator = GetComponent<Animator>();
         _gameManager = GameManager.Instance;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+
     }
     
     private void OnCollisionEnter2D(Collision2D other)
@@ -45,12 +43,17 @@ public class Enemy : MonoBehaviour
         {
             _animator.SetTrigger(dead);
             WaitSec();
+            _gameManager.audioSource.clip = deadSound;
+            _gameManager.audioSource.Play();
             return true;
         }
         else
         {
+            _gameManager.audioSource.clip = hitSound;
+            _gameManager.audioSource.Play();
             _animator.SetTrigger(hit);
         }
+
         return false;
     }
 

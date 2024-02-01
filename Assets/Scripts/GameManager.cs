@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager {get; private set; }
     public EnemiesManager EnemiesManager {get; private set; }
     public GameObject CurrentPlayer;
+    public AudioSource audioSource;
     public int Level = 0; 
     public int[] LevelGoal = new int[10];
     public bool Running = false;
